@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NoNameAi – AI that runs your way</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0c0d10;--surface:#14151a;--surface2:#1a1c22;--line:#262831;--text:#eceef2;--muted:#9096a3;--accent:#ff7a1a;--accent-h:#ff8f3d;--accent-soft:rgba(255,122,26,.12);--grid:rgba(255,255,255,.045);color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fafafb;--surface:#fff;--surface2:#f3f4f6;--line:#e4e6eb;--text:#14151a;--muted:#5b616e;--accent:#ea580c;--accent-h:#c2410c;--accent-soft:rgba(234,88,12,.09);--grid:rgba(20,21,26,.05);color-scheme:light}}
+:root[data-theme="light"]{--bg:#fafafb;--surface:#fff;--surface2:#f3f4f6;--line:#e4e6eb;--text:#14151a;--muted:#5b616e;--accent:#ea580c;--accent-h:#c2410c;--accent-soft:rgba(234,88,12,.09);--grid:rgba(20,21,26,.05);color-scheme:light}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em}
+.logo svg{width:30px;height:30px;display:block}
+.links{display:flex;align-items:center;gap:28px;font-size:.92rem;color:var(--muted)}
+.links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:10px;font-weight:600;font-size:.94rem;border:1px solid var(--line);background:var(--surface);color:var(--text);transition:background .2s,border-color .2s,transform .2s}
+.btn:hover{border-color:var(--muted);transform:translateY(-1px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-h);border-color:var(--accent-h)}
+.btn.sm{height:38px;padding:0 16px;font-size:.88rem}
+.btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hero{position:relative;padding:88px 0 72px}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 30%,#000,transparent);mask-image:radial-gradient(ellipse 70% 70% at 50% 30%,#000,transparent);pointer-events:none}
+.hero::after{content:"";position:absolute;left:50%;top:-120px;width:720px;height:420px;transform:translateX(-50%);background:radial-gradient(ellipse,var(--accent-soft),transparent 70%);pointer-events:none}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:.8rem;color:var(--muted);font-weight:500}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-size:clamp(2.4rem,5.4vw,3.9rem);line-height:1.06;letter-spacing:-.035em;font-weight:700;margin:20px 0 18px}
+h1 em{font-style:normal;color:var(--accent)}
+.lead{color:var(--muted);font-size:1.1rem;max-width:520px;margin:0 0 30px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.facts{display:flex;gap:26px;flex-wrap:wrap;margin-top:34px;padding-top:24px;border-top:1px solid var(--line);font-size:.86rem;color:var(--muted)}
+.facts b{display:block;color:var(--text);font-size:.95rem;font-weight:600}
+.window{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.win-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--surface2);font-size:.78rem;color:var(--muted)}
+.win-bar span{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.win-bar em{margin-left:auto;font-style:normal}
+pre{margin:0;padding:20px;font:400 .84rem/1.75 "JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;min-height:268px;white-space:pre-wrap;overflow-x:auto}
+.u{color:var(--accent)}.ok{color:#22a559}.m{color:var(--muted)}.t{color:var(--text)}
+section{padding:88px 0}
+section.alt{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.eyebrow{color:var(--accent);font-weight:600;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+h2{font-size:clamp(1.8rem,3.6vw,2.5rem);letter-spacing:-.025em;line-height:1.15;margin:10px 0 12px;font-weight:700}
+.sub{color:var(--muted);max-width:560px;margin:0 0 44px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px;transition:border-color .2s,transform .2s}
+section.alt .card{background:var(--bg)}
+.card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.ico{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);margin-bottom:18px}
+.ico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h3{margin:0 0 8px;font-size:1.05rem;font-weight:600}
+.card p{margin:0;color:var(--muted);font-size:.93rem}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.step{padding:26px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
+.num{font:500 .8rem "JetBrains Mono",ui-monospace,monospace;color:var(--accent);margin-bottom:14px;display:block}
+.step h3{margin:0 0 8px;font-size:1.05rem;font-weight:600}
+.step p{margin:0;color:var(--muted);font-size:.93rem}
+.band{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(28px,5vw,52px)}
+.band h2{margin-top:8px}
+.band p{color:var(--muted);margin:0;max-width:520px}
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:.88rem}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.flinks{display:flex;gap:22px}
+.flinks a:hover{color:var(--text)}
+.faq{max-width:780px;display:grid;gap:10px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;transition:border-color .2s}
+section.alt details{background:var(--bg)}
+details[open]{border-color:var(--accent)}
+summary{list-style:none;cursor:pointer;padding:18px 22px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--accent);font-size:1.4rem;line-height:1;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0;padding:0 22px 20px;color:var(--muted);font-size:.95rem}
+.tg{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);display:grid;place-items:center;cursor:pointer;padding:0}
+.tg:hover{border-color:var(--muted)}
+.tg svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
+.reveal.in{opacity:1;transform:none}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}.hero{padding-top:56px}}
+@media (max-width:680px){.links a.hide{display:none}section{padding:64px 0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<nav>
+<a class="logo" href="#top"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffa133"/><stop offset="1" stop-color="#ff4d2e"/></linearGradient></defs><polygon points="32,3 57,17.5 57,46.5 32,61 7,46.5 7,17.5" fill="url(#lg)"/><path d="M23 43V22l18 21V22" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>NoNameAi</a>
+<div class="links">
+<a class="hide" href="#features">Features</a>
+<a class="hide" href="#how">How it works</a>
+<a class="hide" href="#faq">FAQ</a>
+<a class="hide" href="#opensource">Open source</a>
+<button class="tg" id="tg" type="button" aria-label="Toggle light or dark theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+<a class="btn sm primary" href="https://github.com/flamexdev/NoNameAi/releases" target="_blank" rel="noopener">Download</a>
+</div>
+</nav>
+</div>
+</header>
+<main id="top">
+<div class="hero">
+<div class="wrap">
+<div class="hero-grid">
+<div>
+<span class="badge"><i></i>Open source · Updated monthly</span>
+<h1>AI that runs <em>your way.</em></h1>
+<p class="lead">NoNameAi connects to your own API key, includes a built-in API for instant setup, and can run the models you download yourself.</p>
+<div class="cta">
+<a class="btn primary" href="https://github.com/flamexdev/NoNameAi/releases" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>Download</a>
+<a class="btn" href="https://github.com/flamexdev/NoNameAi" target="_blank" rel="noopener">View on GitHub</a>
+</div>
+<div class="facts">
+<div><b>API or local</b>Your choice of backend</div>
+<div><b>Code Mode</b>Built for large projects</div>
+<div><b>Unlicense</b>Free to use and modify</div>
+</div>
+</div>
+<div class="window reveal">
+<div class="win-bar"><span></span><span></span><span></span><em>Code Mode · illustrative preview</em></div>
+<pre id="demo"></pre>
+</div>
+</div>
+</div>
+</div>
+
+<section id="features" class="alt">
+<div class="wrap">
+<div class="eyebrow reveal">Features</div>
+<h2 class="reveal">Everything you need to work with AI.</h2>
+<p class="sub reveal">A focused app that stays out of your way while giving you real flexibility.</p>
+<div class="grid">
+<div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2"/></svg></div><h3>Bring your own API key</h3><p>Connect your own key to run AI models through API integration, with full control.</p></div>
+<div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div><h3>Built-in API</h3><p>No key? Use the built-in API for a simple, hassle-free way to get started.</p></div>
+<div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg></div><h3>Code Mode</h3><p>Generate advanced code, manage large coding projects and tackle complex programming tasks.</p></div>
+<div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M5 13l2-8h10l2 8M7 16.5h.01M11 16.5h5"/></svg></div><h3>Local running</h3><p>Run an AI model you’ve downloaded directly on your own device through the app.</p></div>
+</div>
+</div>
+</section>
+
+<section id="how">
+<div class="wrap">
+<div class="eyebrow reveal">How it works</div>
+<h2 class="reveal">Three ways to get started.</h2>
+<p class="sub reveal">Choose the setup that fits you, and switch whenever you like.</p>
+<div class="steps">
+<div class="step reveal"><span class="num">01</span><h3>Use the built-in API</h3><p>Open the app and start right away, with no accounts and no configuration.</p></div>
+<div class="step reveal"><span class="num">02</span><h3>Connect your own key</h3><p>Add your API key to use the models and providers you prefer.</p></div>
+<div class="step reveal"><span class="num">03</span><h3>Run a local model</h3><p>Load a model you’ve downloaded and keep your work on your device.</p></div>
+</div>
+</div>
+</section>
+
+<section id="faq" class="alt">
+<div class="wrap">
+<div class="eyebrow reveal">FAQ</div>
+<h2 class="reveal">Frequently asked questions.</h2>
+<p class="sub reveal">Quick answers about NoNameAi.</p>
+<div class="faq">
+<details class="reveal"><summary>Is NoNameAi free to use?</summary><p>The project is released under the Unlicense, which places it in the public domain, so you can use and modify it freely.</p></details>
+<details class="reveal"><summary>Do I need my own API key?</summary><p>No. You can use the built-in API for a simple start, or connect your own API key if you prefer.</p></details>
+<details class="reveal"><summary>Can I run AI models locally?</summary><p>Yes. The app lets you run an AI model you’ve downloaded on your own device.</p></details>
+<details class="reveal"><summary>What is Code Mode?</summary><p>Code Mode is built for generating advanced code, working through large coding projects and handling complex programming tasks.</p></details>
+<details class="reveal"><summary>Where can I download it?</summary><p>Builds are published on the GitHub Releases page. The project is young, with a new update planned every month.</p></details>
+<details class="reveal"><summary>How can I report a problem or follow progress?</summary><p>Open an issue or star the repository on GitHub to stay up to date.</p></details>
+</div>
+</div>
+</section>
+
+<section id="opensource">
+<div class="wrap">
+<div class="band reveal">
+<div>
+<div class="eyebrow">Open source</div>
+<h2>Early, transparent, improving every month.</h2>
+<p>NoNameAi is FlameXDev’s first app. The interface is still young, and a new update is planned every month. Follow the project on GitHub.</p>
+</div>
+<div class="cta">
+<a class="btn primary" href="https://github.com/flamexdev/NoNameAi/releases" target="_blank" rel="noopener">Download</a>
+<a class="btn" href="https://github.com/flamexdev/NoNameAi" target="_blank" rel="noopener">Star on GitHub</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap">
+<span>© 2026 FlameXDev · Released under the Unlicense</span>
+<div class="flinks">
+<a href="https://github.com/flamexdev/NoNameAi" target="_blank" rel="noopener">GitHub</a>
+<a href="https://github.com/flamexdev/NoNameAi/releases" target="_blank" rel="noopener">Releases</a>
+<a href="https://github.com/flamexdev/NoNameAi/issues" target="_blank" rel="noopener">Issues</a>
+<a href="https://github.com/flamexdev/NoNameAi/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+</div>
+</div>
+</footer>
+<script>
+(function(){
+var el=document.getElementById("demo");
+var lines=[
+'<span class="u">you ›</span> <span class="t">Build a REST API for a todo app with auth</span>',
+'',
+'<span class="m">Code Mode</span>',
+'<span class="ok">✓</span> <span class="t">Planning project structure</span>',
+'<span class="ok">✓</span> <span class="t">Generating routes, models and middleware</span>',
+'<span class="ok">✓</span> <span class="t">Writing tests and documentation</span>',
+'',
+'<span class="m">Done · 14 files ready</span>'
+];
+var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var i=0,out="",started=false;
+function next(){
+if(i>=lines.length)return;
+out+=(i?"\n":"")+lines[i++];
+el.innerHTML=out;
+setTimeout(next,reduce?0:550);
+}
+var root=document.documentElement;
+document.getElementById("tg").addEventListener("click",function(){
+var cur=root.getAttribute("data-theme");
+var light=cur?cur==="light":window.matchMedia("(prefers-color-scheme: light)").matches;
+root.setAttribute("data-theme",light?"dark":"light");
+});
+var io=new IntersectionObserver(function(es){
+es.forEach(function(e){
+if(e.isIntersecting){
+e.target.classList.add("in");
+if(!started&&e.target.contains(el)){started=true;next();}
+}
+});
+},{threshold:.15});
+document.querySelectorAll(".reveal").forEach(function(n){io.observe(n)});
+})();
+</script>
+</body>
+</html>
